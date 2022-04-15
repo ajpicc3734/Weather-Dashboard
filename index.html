@@ -8,24 +8,34 @@
     <title>Weather Dashboard</title>
   </head>
   <body>
+    <div class="city-search">
+      <form>
+        <input id="search-value" placeholder="Search by City" type="text" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
     <div class="container">
       <div class="current-info">
         <div class="date-container">
           <div class="date" id="date">April 11</div>
 
-          <div id="today-temp" class="current-day">
+          <div class="current-day">
             <div class="weather-item">
               <div>Temp</div>
-              <div>65</div>
+              <div id="today-temp">65</div>
             </div>
             <div class="weather-item">
               <div>Humidity</div>
-              <div>90</div>
+              <div id="today-humidity">90</div>
             </div>
             <div></div>
             <div class="weather-item">
               <div>Wind Speed</div>
-              <div>15</div>
+              <div id="wind-speed">15</div>
+            </div>
+            <div class="weather-item">
+              <div>UV Index:</div>
+              <div id="uvi">15</div>
             </div>
           </div>
         </div>
@@ -35,51 +45,13 @@
           <div class="location" id="location">New Jersey</div>
         </div>
       </div>
-      <div id="upcoming-forecast" class="upcoming-forcast">
-        <div class="five-day">
-          <div class="day">Monday</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="wind">Wind</div>
-          <div class="humidity">Humidity</div>
-        </div>
-
-        <div class="five-day">
-          <div class="day">Tues</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="temp">High</div>
-        </div>
-
-        <div class="five-day">
-          <div class="day">Wed</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="temp">High</div>
-        </div>
-
-        <div class="five-day">
-          <div class="day">Thurs</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="temp">High</div>
-        </div>
-
-        <div class="five-day">
-          <div class="day">Fri</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="temp">High</div>
-        </div>
-
-        <div class="five-day">
-          <div class="day">Sat</div>
-          <img src="" alt="weather-icon" />
-          <div class="temp">Low</div>
-          <div class="temp">High</div>
-        </div>
-      </div>
     </div>
+
+    <section class="”weather”">
+      <div class="container">
+        <div class="forecast">Upcoming Forecast</div>
+      </div>
+    </section>
 
     <script src="./assets/js/script.js"></script>
   </body>
