@@ -6,12 +6,15 @@ const todayHumidityEl = document.getElementById("today-humidity");
 const windSpeedEl = document.getElementById("wind-speed");
 const uviEl = document.getElementById("uvi");
 const form = document.querySelector(".city-search");
+const iconEl = document.getElementById("icon");
+const cityName = document.getElementById("city-name");
 
 const apiKey = "f98e9c61cb0dfbcb590f9f03dd93bd6b";
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   var inputVal = document.getElementById("search-value").value;
+  cityName.textContent = inputVal;
   console.log(inputVal);
 
   var geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${inputVal},US&limit=5&appid=${apiKey}`;
@@ -72,6 +75,17 @@ function showData(data) {
   windSpeedEl.textContent = wind_speed.toFixed(0);
   uviEl.textContent = uvi.toFixed(0);
 
+  uviBackground = function () {
+    if (uvi >= 9) {
+      uviEl.style.backgroundColor = "#f22011";
+    } else if (uvi <= 8 && uvi >= 4) {
+      uviEl.style.backgroundColor = "#e6d40e";
+    } else if (uvi <= 3) {
+      uviEl.style.backgroundcolor = "#19941f";
+    }
+  };
+  uviBackground();
+
   console.log(data.current);
 
   var forecastEl = document.getElementsByClassName("forecast");
@@ -90,6 +104,7 @@ function showData(data) {
       var temp = value.temp.day.toFixed(0);
       var humidity = value.humidity;
       var windSpeed = value.wind_speed.toFixed(0);
+
       upcomingForecast = `<div class="forecast-day">
 						<p>${dayname}</p>
 						<img src=${sourceLink} alt=${value.weather[0].description}> 

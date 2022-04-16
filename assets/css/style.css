@@ -15,10 +15,16 @@ body {
 
 .current-info {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap;
     border: 1px solid black;
 
+}
+
+.date-location-container {
+display: flex;
+flex-direction: column;
+justify-content: left;
 }
 
 .forecast {
@@ -31,3 +37,11 @@ body {
     border: 1px solid black;
     margin: 5px;
 }
+
+.weather-item {
+margin: 5px;
+padding: 5px;
+display: flex;
+justify-content: right;
+}
+
