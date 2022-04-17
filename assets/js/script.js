@@ -7,7 +7,8 @@ const windSpeedEl = document.getElementById("wind-speed");
 const uviEl = document.getElementById("uvi");
 const form = document.querySelector(".city-search");
 const iconEl = document.getElementById("icon");
-const cityName = document.getElementById("city-name");
+var cityName = document.getElementById("city-name");
+const pastSearch = document.getElementById("load-city");
 
 const apiKey = "f98e9c61cb0dfbcb590f9f03dd93bd6b";
 
@@ -15,6 +16,25 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   var inputVal = document.getElementById("search-value").value;
   cityName.textContent = inputVal;
+
+  // submitButton.oncick = function () {
+  //   localStorage.setItem("cityName", inputVal);
+  //   localStorage.getItem("cityName");
+  // };
+
+  var citySave = function () {
+    localStorage.setItem;
+    localStorage.setItem("cityName", inputVal);
+  };
+  citySave();
+
+  var loadCity = function () {
+    var cityLoad = localStorage.getItem("cityName");
+    console.log(cityLoad);
+    pastSearch.innerHTML = cityLoad;
+  };
+  loadCity();
+
   console.log(inputVal);
 
   var geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${inputVal},US&limit=5&appid=${apiKey}`;
