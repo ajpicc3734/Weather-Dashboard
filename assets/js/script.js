@@ -11,17 +11,13 @@ var cityName = document.getElementById("city-name");
 const pastSearch = document.getElementById("load-city");
 
 const apiKey = "f98e9c61cb0dfbcb590f9f03dd93bd6b";
-
+//city search
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   var inputVal = document.getElementById("search-value").value;
   cityName.textContent = inputVal;
 
-  // submitButton.oncick = function () {
-  //   localStorage.setItem("cityName", inputVal);
-  //   localStorage.getItem("cityName");
-  // };
-
+  //save and get city from local storage
   var citySave = function () {
     localStorage.setItem;
     localStorage.setItem("cityName", inputVal);
@@ -36,7 +32,7 @@ form.addEventListener("submit", (e) => {
   loadCity();
 
   console.log(inputVal);
-
+  //get lat and lon by location
   var geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${inputVal},US&limit=5&appid=${apiKey}`;
 
   fetch(geoApi)
@@ -49,7 +45,7 @@ form.addEventListener("submit", (e) => {
       getWeatherData(lat, lon);
     });
 });
-
+//set date
 dateSet = function () {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -62,10 +58,8 @@ dateSet = function () {
 
 dateSet();
 
+//function to retrieve weather data
 var getWeatherData = function (lat, lon) {
-  // navigator.geolocation.getCurrentPosition((success) => {
-  //   console.log(success);
-  // });
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
     lat +
@@ -80,13 +74,9 @@ var getWeatherData = function (lat, lon) {
       showData(data);
       console.log(data);
     });
-
-  // fetch(apiUrl)
-  //   .then((response) => response.json())
-  //   .then((data) => console.log(data));
 };
-// getWeatherData();
 
+//function to display weather data
 function showData(data) {
   let { humidity, temp, wind_speed, uvi } = data.current;
 
@@ -95,6 +85,7 @@ function showData(data) {
   windSpeedEl.textContent = wind_speed.toFixed(0);
   uviEl.textContent = uvi.toFixed(0);
 
+  // UVI background color
   uviBackground = function () {
     if (uvi >= 9) {
       uviEl.style.backgroundColor = "#f22011";
@@ -107,7 +98,7 @@ function showData(data) {
   uviBackground();
 
   console.log(data.current);
-
+  // get and display future forecast
   var forecastEl = document.getElementsByClassName("forecast");
   forecastEl[0].classList.add("loaded");
 
