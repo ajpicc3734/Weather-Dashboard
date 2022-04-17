@@ -15,3 +15,5 @@ This application is a weather dashboard used to check the forecast for multiplie
 https://ajpicc3734.github.io/Weather-Dashboard/
 
 ## ScreenShot
+
+![screenshot](./assets/images/Capture.PNG)
