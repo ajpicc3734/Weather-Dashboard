@@ -50,9 +50,17 @@ justify-content: left;
     padding: 5px
 }
 
-.forecast-day {
+.loaded {
+    display: flex;
+    width: 50%;
+    /* flex-wrap: wrap; */
+}
+.upcoming-forecast {
     border: 1px solid black;
     margin: 5px;
+    /* display: flex;
+    flex-direction: row;
+    width: 80%; */
 }
 
 .weather-item {

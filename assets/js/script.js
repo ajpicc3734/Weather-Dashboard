@@ -1,6 +1,6 @@
 const dateEl = document.getElementById("date");
 const locationEl = document.getElementById("location");
-const upcomingForecastEl = document.getElementById("upcoming-forecast");
+const upcomingForecastEl = document.getElementById("forecast");
 const todayTempEl = document.getElementById("today-temp");
 const todayHumidityEl = document.getElementById("today-humidity");
 const windSpeedEl = document.getElementById("wind-speed");
@@ -9,6 +9,7 @@ const form = document.querySelector(".city-search");
 const iconEl = document.getElementById("icon");
 var cityName = document.getElementById("city-name");
 const pastSearch = document.getElementById("load-city");
+var cityArray = JSON.parse(localStorage.getItem("cityArray")) || [];
 
 const apiKey = "f98e9c61cb0dfbcb590f9f03dd93bd6b";
 //city search
@@ -18,18 +19,14 @@ form.addEventListener("submit", (e) => {
   cityName.textContent = inputVal;
 
   //save and get city from local storage
-  var citySave = function () {
-    localStorage.setItem;
-    localStorage.setItem("cityName", inputVal);
-  };
-  citySave();
+  if (cityArray.indexOf(inputVal) === -1) {
+    cityArray.push(inputVal);
+  }
 
-  var loadCity = function () {
-    var cityLoad = localStorage.getItem("cityName");
-    console.log(cityLoad);
-    pastSearch.innerHTML = cityLoad;
-  };
-  loadCity();
+  localStorage.setItem("cityArray", JSON.stringify(cityArray));
+
+  var loadCity = localStorage.getItem("cityArray");
+  pastSearch.innerHTML = loadCity;
 
   console.log(inputVal);
   //get lat and lon by location
@@ -89,9 +86,9 @@ function showData(data) {
   uviBackground = function () {
     if (uvi >= 9) {
       uviEl.style.backgroundColor = "#f22011";
-    } else if (uvi <= 8 && uvi >= 4) {
+    } else if (uvi <= 8 && uvi >= 3) {
       uviEl.style.backgroundColor = "#e6d40e";
-    } else if (uvi <= 3) {
+    } else {
       uviEl.style.backgroundcolor = "#19941f";
     }
   };
@@ -99,15 +96,13 @@ function showData(data) {
 
   console.log(data.current);
   // get and display future forecast
-  var forecastEl = document.getElementsByClassName("forecast");
-  forecastEl[0].classList.add("loaded");
+  var forecastEl = document.getElementById("forecast");
+  forecastEl.classList.add("loaded");
 
   var upcomingForecast = "";
   data.daily.forEach((value, index) => {
     if (index > 0) {
-      var dayname = new Date(value.dt * 1000).toLocaleDateString("en", {
-        weekday: "long",
-      });
+      var date = new Date(value.dt * 1000).toLocaleDateString("en", {});
       console.log(value);
 
       var iconId = value.weather[0].icon;
@@ -116,16 +111,37 @@ function showData(data) {
       var humidity = value.humidity;
       var windSpeed = value.wind_speed.toFixed(0);
 
-      upcomingForecast = `<div class="forecast-day">
-						<p>${dayname}</p>
-						<img src=${sourceLink} alt=${value.weather[0].description}> 
-						<div class="forecast-day--temp">Temp: ${temp}<sup>°C</sup></div>
-            <div class="forecast-day--humidity">Humidity: ${humidity}</div>
-            <div class="forecast-day--wind-speed">Wind Speed: ${windSpeed}</div>
+      var forecastDay = document.createElement("div");
+      forecastDay.setAttribute("class", "upcoming-forecast");
 
+      var pTag = document.createElement("p");
+      pTag.textContent = date;
+      var imgTag = document.createElement("img");
+      imgTag.setAttribute("src", sourceLink);
+      imgTag.setAttribute("alt", value.weather[0].description);
+      var temperatureText = document.createElement("div");
+      temperatureText.textContent = "Temp:";
+      var temperature = document.createElement("div");
+      temperature.textContent = temp;
+      var humidityText = document.createElement("div");
+      humidityText.textContent = "Humidity:";
+      var humidityEl = document.createElement("div");
+      humidityEl.textContent = humidity;
+      var windText = document.createElement("div");
+      windText.textContent = "Wind Speed:";
+      windEl = document.createElement("div");
+      windEl.textContent = windSpeed;
 
-					</div>`;
-      forecastEl[0].insertAdjacentHTML("beforeend", upcomingForecast);
+      forecastDay.appendChild(pTag);
+      forecastDay.appendChild(imgTag);
+      forecastDay.appendChild(temperatureText);
+      forecastDay.appendChild(temperature);
+      forecastDay.appendChild(humidityText);
+      forecastDay.appendChild(humidityEl);
+      forecastDay.appendChild(windText);
+      forecastDay.appendChild(windEl);
+
+      forecastEl.appendChild(forecastDay);
     }
   });
 }
